@@ -1,0 +1,254 @@
+% ==============================================================================
+% ECUACIONES DIFERENCIALES HOMOGÉNEAS CON COEFICIENTES CONSTANTES
+% Aplicaciones en Ingeniería de Sistemas
+% ==============================================================================
+\documentclass[stu,12pt,a4paper,hidelinks]{apa7}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots}
+\usepackage{circuitikz}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{xcolor}  % Necesario para colores en listings
+\usepackage{siunitx} % Para unidades SI
+
+% Metadatos APA 7
+\title{Ecuaciones Diferenciales Homogéneas con Coeficientes Constantes: Teoría y Aplicaciones en Ingeniería de Sistemas}
+\shorttitle{ED homogéneas coef. constantes}
+\author{Juan Carlos Gómez Ríos}
+\affiliation{Universidad Tecnológica de Pereira, Facultad de Ingeniería de Sistemas}
+\course{Matemáticas Avanzadas para Ingeniería}
+\professor{Dra. Laura M. Vargas}
+\duedate{\today}
+
+% Configuración de listings
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  commentstyle=\color{green!60!black},
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=5pt,
+  frame=single,
+  breaklines=true
+}
+
+\begin{document}
+\maketitle
+
+% ------------------------------------------------------------------------------
+% RESUMEN
+% ------------------------------------------------------------------------------
+\begin{abstract}
+Las ecuaciones diferenciales lineales homogéneas con coeficientes constantes constituyen una herramienta fundamental en el modelado y análisis de sistemas dinámicos lineales invariantes en el tiempo. Este documento presenta una revisión teórica de los métodos de solución para dichas ecuaciones, clasificando los casos según la naturaleza de las raíces del polinomio característico: reales distintas, reales repetidas y complejas conjugadas. Se ilustran aplicaciones en circuitos RLC, sistemas masa-resorte-amortiguador y sistemas acoplados, enfatizando la interpretación ingenieril de los parámetros de amortiguamiento y frecuencia. Además, se incluyen implementaciones computacionales en Python para la resolución simbólica y visualización de soluciones, así como instrucciones para la creación de applets interactivos en GeoGebra. Los resultados permiten al estudiante de Ingeniería de Sistemas comprender el comportamiento transitorio y permanente de sistemas lineales, sentando las bases para el análisis de estabilidad y control clásico.
+\end{abstract}
+
+% ------------------------------------------------------------------------------
+% INTRODUCCIÓN
+% ------------------------------------------------------------------------------
+\section{Introducción}
+Desde los trabajos pioneros de Euler y Lagrange en el siglo XVIII, las ecuaciones diferenciales han sido el lenguaje natural para describir sistemas dinámicos. En el ámbito de la Ingeniería de Sistemas, los modelos lineales e invariantes en el tiempo (LTI) permiten analizar redes eléctricas, algoritmos de control, dinámica de robots y respuesta de servomecanismos \citep{ogata2010modern}.
+
+Una ecuación diferencial lineal homogénea con coeficientes constantes
+\begin{equation}\label{eq:edo_general}
+a_n y^{(n)}(t) + a_{n-1} y^{(n-1)}(t) + \dots + a_0 y(t) = 0
+\end{equation}
+resume la dinámica de múltiples procesos físicos: la carga de un capacitor en un circuito RLC, la oscilación de una plataforma antivibrante o la propagación de señales en líneas de transmisión. Comprender su solución permite predecir estabilidad, tiempos de asentamiento y frecuencias naturales de oscilación, parámetros críticos en el diseño de sistemas de control realimentados \citep{dorf2011modern}.
+
+Los objetivos de este trabajo son:
+\begin{enumerate}[label=\alph*)]
+  \item Revisar la teoría de solución de la ecuación diferencial general según la naturaleza de las raíces del polinomio característico.
+  \item Interpretar los parámetros de amortiguamiento y frecuencia en aplicaciones ingenieriles.
+  \item Implementar rutinas computacionales para la resolución simbólica y visualización de soluciones.
+\end{enumerate}
+
+% ------------------------------------------------------------------------------
+% MARCO TEÓRICO
+% ------------------------------------------------------------------------------
+\section{Marco Teórico}
+
+\subsection{Definiciones fundamentales}
+La ecuación \eqref{eq:edo_general} se dice \emph{lineal}, \emph{homogénea} e \emph{invariante en el tiempo} porque los coeficientes $a_i$ son constantes y el término independiente es nulo. Su solución se obtiene a partir del \emph{polinomio característico}
+\begin{equation}\label{eq:caracteristico}
+P(r)=a_n r^n + a_{n-1} r^{n-1} + \dots + a_0 = 0.
+\end{equation}
+Las raíces $r_k$ de \eqref{eq:caracteristico} determinan la forma funcional de la solución general
+\begin{equation}\label{eq:sol_general}
+y_h(t)=\sum_{k=1}^{n} C_k \, \phi_k(t),
+\end{equation}
+donde $\phi_k(t)$ son funciones que dependen del tipo de raíz y $C_k$ constantes arbitrarias determinadas por las condiciones iniciales.
+
+\subsection{Clasificación y métodos de solución}
+La Tabla~\ref{tab:casos} resume los tres casos fundamentales para ecuaciones de segundo orden, frecuentes en modelos físicos.
+
+\begin{table}[H]
+\centering
+\caption{Clasificación de soluciones según la naturaleza de las raíces}
+\label{tab:casos}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Caso} & \textbf{Raíces} & \textbf{Solución general} & \textbf{Aplicación ingenieril} \\ \midrule
+Reales distintas & $\lambda_1 \neq \lambda_2$ & $C_1 e^{\lambda_1 t}+C_2 e^{\lambda_2 t}$ & Sistema sobreamortiguado \\
+Reales repetidas & $\lambda_1 = \lambda_2 = \lambda$ & $(C_1+C_2 t)e^{\lambda t}$ & Sistema críticamente amortiguado \\
+Complejas conjugadas & $\alpha \pm \beta i$ & $e^{\alpha t}(C_1 \cos\beta t + C_2 \sin\beta t)$ & Sistema subamortiguado \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Representación matricial y valores propios}
+Un sistema de $n$ ecuaciones de primer orden acopladas
+\begin{equation}\label{eq:sistema_mat}
+\dot{\mathbf{u}}(t)=A\,\mathbf{u}(t),\qquad A\in\mathbb{R}^{n\times n},
+\end{equation}
+tiene solución
+\begin{equation}\label{eq:sol_mat}
+\mathbf{u}(t)=e^{At}\mathbf{u}_0,
+\end{equation}
+donde $e^{At}$ es la \emph{exponencial matricial}. Si $A$ es diagonalizable, $A=P\Lambda P^{-1}$, entonces
+\[
+e^{At}=P e^{\Lambda t} P^{-1},
+\]
+siendo $\Lambda=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$ los valores propios de $A$, que coinciden con las raíces del polinomio característico de \eqref{eq:edo_general} cuando \eqref{eq:sistema_mat} proviene de una única ecuación de orden $n$ \citep{strang2016introduction}.
+
+% ------------------------------------------------------------------------------
+% EJERCICIOS TEÓRICO-PRÁCTICOS
+% ------------------------------------------------------------------------------
+\section{Ejercicios Teórico-Prácticos}
+
+\subsection{Ejercicio 1: Raíces reales distintas (sobreamortiguado)}
+\textbf{Enunciado.} Resuelva $y''-5y'+6y=0$ con $y(0)=2$, $y'(0)=-1$. Interprete la respuesta para un circuito RLC serie con $R=7\ \Omega$, $L=1$ H, $C=0.1$ F.
+
+\textbf{Solución.}
+\begin{enumerate}[label=\arabic*.]
+  \item Polinomio característico: $r^2-5r+6=0\Rightarrow r_1=2,\,r_2=3$.
+  \item Solución general: $y(t)=C_1 e^{2t}+C_2 e^{3t}$.
+  \item Aplicando condiciones iniciales:
+  \[
+  \begin{cases}
+  C_1+C_2=2\\
+  2C_1+3C_2=-1
+  \end{cases}
+  \Rightarrow C_1=7,\;C_2=-5.
+  \]
+  Por tanto, $y(t)=7e^{2t}-5e^{3t}$.
+\end{enumerate}
+
+\textbf{Implementación Python} (ver Figura~\ref{fig:ej1}):
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def y(t): return 7*np.exp(2*t) - 5*np.exp(3*t)
+t = np.linspace(0, 2, 500)
+plt.plot(t, y(t), label='y(t)')
+plt.xlabel('t (s)')
+plt.ylabel('y(t) (V)')
+plt.title('Respuesta sobreamortiguada')
+plt.grid(True); plt.show()
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+% \includegraphics[width=.7\linewidth]{ej1_sobre.pdf}
+\caption{Respuesta sobreamortiguada del Ejercicio 1.}
+\label{fig:ej1}
+\end{figure}
+
+\textbf{GeoGebra.} Crear un campo de direcciones con comando:
+\begin{verbatim}
+CampoDirecciones(y'' - 5y' + 6y = 0)
+\end{verbatim}
+
+\subsection{Ejercicio 2: Raíces complejas conjugadas (subamortiguado)}
+\textbf{Enunciado.} Analice $y''-4y'+13y=0$.
+
+\textbf{Solución.}
+Raíces: $r=2\pm 3i$. Solución general:
+\[
+y(t)=e^{2t}\bigl(C_1\cos(3t)+C_2\sin(3t)\bigr).
+\]
+La parte exponencial $e^{2t}$ modela un crecimiento ligero, mientras que $\cos 3t$ y $\sin 3t$ añaden una oscilación de frecuencia $\beta=3$ rad/s. En un sistema masa-resorte-amortiguador, el amortiguamiento relativo $\zeta=\frac{\alpha}{\omega_n}=\frac{2}{\sqrt{13}}\approx 0.55<1$, confirmando el comportamiento subamortiguado (Figura~\ref{fig:ej2}).
+
+\begin{figure}[H]
+\centering
+% \includegraphics[width=.7\linewidth]{ej2_sub.pdf}
+\caption{Respuesta subamortiguada del Ejercicio 2.}
+\label{fig:ej2}
+\end{figure}
+
+\subsection{Ejercicio 3: Raíces reales repetidas (críticamente amortiguado)}
+\textbf{Enunciado.} Resuelva $y''-6y'+9y=0$.
+
+\textbf{Solución.}
+Raíz doble $r=3$. Solución:
+\[
+y(t)=(C_1+C_2 t)e^{3t}.
+\]
+El factor $t$ indica el mínimo amortiguamiento que evita oscilaciones, útil en sistemas de puertas automáticas o suspensión de vehículos donde se desea retorno al equilibrio sin rebotes.
+
+\subsection{Ejercicio 4: Sistema acoplado}
+\textbf{Enunciado.} Resuelva
+\[
+\dot x = x + 2y,\quad \dot y = 3x + 2y,\qquad x(0)=0,\;y(0)=-4.
+\]
+
+\textbf{Solución.}
+Matriz $A=\begin{pmatrix}1 & 2 \\ 3 & 2\end{pmatrix}$. Valores propios:
+\[
+\det(A-\lambda I)=\lambda^2-3\lambda-4=0\Rightarrow \lambda_1=-1,\;\lambda_2=4.
+\]
+Vector propio asociado a $\lambda_1=-1$: $\mathbf{v}_1=(2,-1)^T$. Solución general:
+\[
+\mathbf{u}(t)=C_1 e^{-t}\begin{pmatrix}2\\-1\end{pmatrix}+C_2 e^{4t}\begin{pmatrix}1\\1\end{pmatrix}.
+\]
+Condiciones iniciales $\Rightarrow C_1=2,\;C_2=-2$. Figura~\ref{fig:ej4} muestra el retrato de fase.
+
+\begin{figure}[H]
+\centering
+% \includegraphics[width=.7\linewidth]{ej4_fase.pdf}
+\caption{Retrato de fase del sistema acoplado (Ejercicio 4).}
+\label{fig:ej4}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+% IMPLEMENTACIÓN COMPUTACIONAL
+% ------------------------------------------------------------------------------
+\section{Implementación computacional}
+El código completo (\texttt{solve\_edolh.py}) utiliza SymPy para resolver simbólicamente cualquier ED lineal homogénea con coeficientes constantes y Matplotlib para visualizar. Se puede descargar en el repositorio \href{https://github.com/jcgomez/edolh}{GitHub}.
+
+% ------------------------------------------------------------------------------
+% CONCLUSIÓN
+% ------------------------------------------------------------------------------
+\section{Conclusión}
+Los métodos analíticos y computacionales estudiados permiten predecir la dinámica de sistemas LTI sin más información que las condiciones iniciales y los coeficientes del modelo. La clasificación según amortiguamiento (sobreamortiguado, crítico o subamortiguado) resulta decisiva al diseñar controladores PID, filtros analógicos o estimadores de estado. En cursos posteriores, la transformada de Laplace extenderá estos resultados al análisis de estabilidad BIBO y al diseño de compensadores \citep{franklin2015feedback}.
+
+% ------------------------------------------------------------------------------
+% REFERENCIAS
+% ------------------------------------------------------------------------------
+\begin{thebibliography}{}
+
+\bibitem{ogata2010modern}
+Ogata, K. (2010). \emph{Modern Control Engineering} (5.ª ed.). Pearson.
+
+\bibitem{dorf2011modern}
+Dorf, R. C., \& Bishop, R. H. (2011). \emph{Modern Control Systems} (12.ª ed.). Prentice Hall.
+
+\bibitem{strang2016introduction}
+Strang, G. (2016). \emph{Introduction to Linear Algebra} (5.ª ed.). Wellesley-Cambridge Press.
+
+\bibitem{franklin2015feedback}
+Franklin, G. F., Powell, J. D., \& Emami-Naeini, A. (2015). \emph{Feedback Control of Dynamic Systems} (7.ª ed.). Pearson.
+
+\end{thebibliography}
+
+\end{document}

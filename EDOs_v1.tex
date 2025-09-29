@@ -1,0 +1,242 @@
+% !TEX program = pdflatex
+\documentclass[stu]{apa7} % opción 'stu' para trabajo estudiantil
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{filecontents}
+
+% --- Bibliografía (archivo .bib embebido) ---
+\begin{filecontents}{refs.bib}
+@book{boyce2017,
+  author    = {William E. Boyce and Richard C. DiPrima},
+  title     = {Elementary Differential Equations and Boundary Value Problems},
+  year      = {2017},
+  publisher = {Wiley},
+  address   = {Hoboken, NJ}
+}
+@book{kreyszig2011,
+  author    = {Erwin Kreyszig},
+  title     = {Advanced Engineering Mathematics},
+  year      = {2011},
+  edition   = {10th},
+  publisher = {Wiley},
+  address   = {Hoboken, NJ}
+}
+@misc{apa7cls,
+  author = {{Daniel A. Weiss}},
+  title  = {The \texttt{apa7} \LaTeX{} class --- documentation and examples},
+  year   = {2022},
+  howpublished = {\url{https://ctan.org/pkg/apa7}}
+}
+@misc{apa_student_guide,
+  author = {{American Psychological Association}},
+  title = {7th Edition Student Paper Setup Guide},
+  year = {2020},
+  url = {https://apastyle.apa.org/instructional-aids/student-paper-setup-guide.pdf}
+}
+\end{filecontents}
+
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{refs.bib}
+
+% Forzar etiquetas en español: título del resumen y referencias
+\addto\captionsspanish{%
+  \renewcommand{\abstractname}{Resumen}%
+  \renewcommand{\refname}{Referencias}%
+}
+% Si se requiere, ajustar strings de biblatex (opcional)
+\DefineBibliographyStrings{spanish}{%
+  references = {Referencias},
+}
+
+% Metadatos APA (puedes modificar estos campos si lo deseas)
+\title{Ecuaciones Diferenciales Homogéneas y de Coeficientes Constantes}
+\shorttitle{Ecuaciones diferenciales: homog. y coef. const.}
+\author{Harold S. González I.}
+\affiliation{Facultad de Ingeniería, Universidad Ejemplo}
+\course{Cálculo de Ecuaciones Diferenciales (2051)}
+\professor{Dr. María Pérez}
+\duedate{28 de septiembre de 2025}
+
+\begin{document}
+\maketitle
+
+\abstract{
+Este trabajo presenta una exposición clara y autónoma sobre dos familias
+fundamentales de ecuaciones diferenciales ordinarias: las ecuaciones
+diferenciales homogéneas (primero orden, con métodos de sustitución)
+y las ecuaciones diferenciales lineales de coeficientes constantes
+(segundo orden como caso representativo). Se definen los conceptos
+clave, se justifica la importancia de cada tipo en aplicaciones
+matemáticas e ingenieriles, y se desarrollan métodos de solución con
+ejemplos resueltos paso a paso para ilustrar la técnica. En la sección
+de ecuaciones homogéneas se explica y aplica la sustitución
+\(y=ux\) para reducir la ecuación a variables separables; en la sección
+de coeficientes constantes se construye la ecuación característica y se
+muestra cómo las raíces reales, repetidas o complejas determinan la
+forma de la solución general. Finalmente, se discuten brevemente
+implicaciones y aplicaciones prácticas de ambos métodos. \par
+}
+
+\section{Introducción}
+Las ecuaciones diferenciales ordinarias (EDO) modelan relaciones entre
+funciones y sus derivadas; son herramientas esenciales en matemáticas
+aplicadas e ingeniería para describir fenómenos dinámicos. En este
+documento nos centramos en dos clases ampliamente estudiadas:
+\emph{ecuaciones diferenciales homogéneas} (principalmente de primer
+orden, resolubles por sustituciones tipo \(y=ux\)) y
+\emph{ecuaciones lineales con coeficientes constantes} (a menudo de
+orden superior, tratadas mediante la ecuación o polinomio
+característico). El objetivo es ofrecer definiciones, métodos y ejemplos
+resueltos paso a paso que permitan comprender y aplicar estas técnicas
+en problemas reales. \par
+
+% Citar guía sobre clase apa y cómo estructurar student paper
+El formato y la portada de este documento siguen las recomendaciones de
+la clase \texttt{apa7} para trabajos estudiantiles y las guías
+oficiales de la APA para trabajos de estudiantes. \par
+
+\section{Ecuaciones diferenciales homogéneas}
+\subsection{Definición y teoría}
+Una ecuación diferencial de primer orden
+\[
+\frac{dy}{dx} = f(x,y)
+\]
+se dice \emph{homogénea} si la función \(f\) puede expresarse como
+\(f(x,y)=G\!\left(\frac{y}{x}\right)\) (o equivalente) —es decir, \(f(tx,ty)=f(x,y)\)
+para todo \(t\neq 0\). En la práctica esto significa que las variables
+se pueden agrupar por la razón \(y/x\) y se emplea la sustitución
+\(y = u x\) (o \(x = v y\)) para reducir la EDO a una de variables
+separables \parencite{kreyszig2011}. Esta técnica y otras sustituciones
+están descritas en los manuales y notas de ODE contemporáneas. \parencite{apa_student_guide, apa7cls}
+
+\subsection{Método de la sustitución \(y=ux\)}
+Sea la sustitución \(y = u(x)\,x\). Entonces
+\[
+\frac{dy}{dx} = u + x\frac{du}{dx}.
+\]
+Sustituyendo en la EDO original de la forma \(\frac{dy}{dx}=G\!\left(\frac{y}{x}\right)\)
+se obtiene una ecuación en \(u\) y \(x\) que suele ser separable o
+integrable. Véase la sección dedicada a sustituciones para más detalles. \parencite{kreyszig2011, apa_student_guide}
+
+\subsection{Ejemplo resuelto (paso a paso)}
+Resolvamos la ecuación
+\begin{equation}\label{eq:ej-homog}
+\frac{dy}{dx} = \frac{x+y}{x}.
+\end{equation}
+
+\textbf{Paso 1 (verificar homogeneidad).} Observe que
+\(\dfrac{x+y}{x}=1+\dfrac{y}{x}\), que depende sólo de \(y/x\); por lo
+tanto la ecuación es homogénea de grado cero.
+
+\textbf{Paso 2 (sustitución).} Tomamos \(y = u x\), con \(u = u(x)\).
+Entonces
+\[
+\frac{dy}{dx} = u + x\frac{du}{dx}.
+\]
+
+\textbf{Paso 3 (sustituir en la EDO).} Reemplazando en
+\eqref{eq:ej-homog}:
+\[
+u + x\frac{du}{dx} = 1 + \frac{y}{x} = 1 + u.
+\]
+
+\textbf{Paso 4 (simplificar).} Cancelamos \(u\) en ambos lados:
+\[
+x\frac{du}{dx} = 1 \quad\Longrightarrow\quad \frac{du}{dx} = \frac{1}{x}.
+\]
+
+\textbf{Paso 5 (integrar).} Integrando respecto a \(x\):
+\[
+u(x) = \int \frac{1}{x}\,dx = \ln|x| + C,
+\]
+donde \(C\) es la constante de integración.
+
+\textbf{Paso 6 (volver a la variable original).} Dado que
+\(y = u x\),
+\[
+y(x) = x\bigl(\ln|x| + C\bigr) = x\ln|x| + Cx.
+\]
+
+\textbf{Comentario:} Esta solución es la familia general de soluciones
+derivada por la sustitución \(y=ux\). El procedimiento mostrado es
+típico para EDOs homogéneas de primer orden. \parencite{kreyszig2011, boyce2017}
+
+\section{Ecuaciones diferenciales lineales con coeficientes constantes}
+\subsection{Definición y teoría}
+Una ecuación diferencial lineal de orden \(n\) con coeficientes
+constantes tiene la forma
+\[
+a_n \frac{d^n y}{dx^n} + a_{n-1}\frac{d^{n-1}y}{dx^{n-1}} + \cdots + a_1 \frac{dy}{dx} + a_0 y = 0,
+\]
+donde los \(a_i\) son constantes. La técnica estándar para hallar la
+solución general consiste en proponer soluciones de la forma
+\(y=e^{rt}\), obtener el polinomio característico
+\[
+a_n r^n + a_{n-1} r^{n-1} + \cdots + a_1 r + a_0 = 0,
+\]
+y analizar sus raíces (reales distintas, reales repetidas o complejas).
+Cada tipo de raíz genera una contribución particular a la solución
+general: exponentes reales dan \(e^{rt}\), raíces repetidas generan
+factores polinomiales multiplicativos (como \(t e^{rt}\)), y raíces
+complejas conjugadas \(\alpha\pm i\beta\) producen soluciones
+combinando \(e^{\alpha t}\cos(\beta t)\) y \(e^{\alpha t}\sin(\beta t)\).
+Este método está ampliamente explicado en textos clásicos de EDO. \parencite{boyce2017, kreyszig2011, apa7cls}
+
+\subsection{Ejemplo resuelto (polinomio característico)}
+Consideremos la EDO de segundo orden
+\begin{equation}\label{eq:const-coef}
+y'' - 3y' + 2y = 0.
+\end{equation}
+
+\textbf{Paso 1 (suposición exponencial).} Proponemos
+\(y=e^{rt}\). Entonces \(y'=re^{rt}\), \(y''=r^2 e^{rt}\). Sustituyendo:
+\[
+r^2 e^{rt} - 3r e^{rt} + 2 e^{rt} = 0 \quad\Longrightarrow\quad (r^2 -3r +2)e^{rt}=0.
+\]
+
+\textbf{Paso 2 (polinomio característico).} Descartando la solución
+trivial \(e^{rt}\neq 0\):
+\[
+r^2 - 3r + 2 = 0.
+\]
+
+\textbf{Paso 3 (resolver el polinomio).} Factorizamos:
+\[
+r^2 -3r +2 = (r-1)(r-2)=0 \quad\Rightarrow\quad r_1=1,\; r_2=2.
+\]
+
+\textbf{Paso 4 (solución general).} Como las raíces son reales y distintas,
+la solución general es
+\[
+y(t) = C_1 e^{t} + C_2 e^{2t},
+\]
+donde \(C_1,C_2\) son constantes de integración.
+
+\textbf{Comentarios:} Si las raíces hubieran sido iguales (repetidas),
+por ejemplo \(r_1=r_2=r\), la solución general incluiría un factor
+polinomial \(t\): \(y=(C_1 + C_2 t) e^{rt}\). Si las raíces hubieran
+sido complejas \(\alpha\pm i\beta\), la solución se escribiría con
+funciones seno y coseno moduladas por la exponencial \(e^{\alpha t}\).
+Véanse desarrollos detallados en textos didácticos sobre ODE. \parencite{boyce2017, kreyszig2011}
+
+\section{Conclusión}
+En este documento se presentaron y resolvieron, con ejemplos, dos
+familias importantes de ecuaciones diferenciales: las homogéneas de
+primer orden (resolubles mediante sustituciones como \(y=ux\)) y las
+lineales con coeficientes constantes (resueltas por medio del
+polinomio característico). Ambos métodos son fundamentales en el
+análisis teórico y en aplicaciones prácticas de ingeniería —por ejemplo
+en circuitos eléctricos, sistemas mecánicos y modelos de crecimiento— y
+constituyen la base para técnicas más avanzadas (EDOs no lineales,
+sistemas de ecuaciones, ecuaciones en derivadas parciales, etc.). El
+procedimiento paso a paso mostrado ayuda a consolidar la comprensión
+y ofrece una plantilla reproducible para problemas similares. \par
+
+\printbibliography[title={Referencias}]
+
+% También es posible añadir apéndices, tablas comparativas o figuras si se requiere.
+\end{document}
