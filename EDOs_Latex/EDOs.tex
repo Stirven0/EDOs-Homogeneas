@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{graphicx}
-\graphicspath{{./EDOs_v6}}
+\graphicspath{{./EDOs_imgs}}
 \usepackage[margin=2.54cm]{geometry}
 \usepackage{setspace}
 \usepackage{fancyhdr}
@@ -18,36 +18,66 @@
 \fancyhf{}
 \rhead{\thepage}
 \renewcommand{\headrulewidth}{0pt}
-\doublespacing
-\setlength{\parindent}{0.5in}
 
-\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+%
+% \doublespacing
+% \setlength{\parindent}{0.5in}
 
-\title{
-    \vspace{2cm}
-    \Large\textbf{Ecuaciones Diferenciales Homogéneas y Coeficientes Lineales: Aplicaciones en Ingeniería de Sistemas}
-    \vspace{1cm}
-}
+% \titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+% \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
 
-\author{
-    Autor 1 \\
-    Autor 2 \\
-    Ingeniería de Sistemas, Universidad ejemplo \\
-}
-\date{\today}
+% \title{
+%     \vspace{2cm}
+%     \Large\textbf{Ecuaciones Diferenciales Homogéneas y Coeficientes Lineales: Aplicaciones en Ingeniería de Sistemas}
+%     \vspace{1cm}
+% }
+
+% \author{
+%     Autor 1 \\
+%     Autor 2 \\
+%     Ingeniería de Sistemas, Universidad ejemplo \\
+% }
+% \date{\today}
 
 \begin{document}
 
-\maketitle
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\LARGE \textbf{Ecuaciones Diferenciales Homogéneas y Coeficientes Lineales: Aplicaciones en Ingeniería de Sistemas}\par}
+    
+    \vspace{3cm}
+    
+    {\large Julio Cesar Amaya Amaya \\ Danny José Hernández González\par}
+    \vspace{0.5cm}
+    {\large Ingeniería de Sistemas, Universidad de la Guajira\par}
+    
+    \vspace{2cm}
+    
+    {\large \today\par}
+    
+    \vspace{3cm}
+    
+    \begin{flushleft}
+        Trabajo presentado para el curso de Ecuaciones Diferenciales\\
+        Grupo: C2\\
+        Profesor: Yoni Cotez Gualé
+    \end{flushleft}
+    
+    \vfill
+\end{titlepage}
+
+% \maketitle
 \thispagestyle{empty}
-\vfill
-\begin{center}
-    \textbf{Resumen}
-\end{center}
-\begin{quote}
-    Las ecuaciones diferenciales homogéneas con coeficientes lineales constituyen una herramienta fundamental en el modelado matemático de sistemas dinámicos. Este documento presenta una revisión teórica y aplicada de estos conceptos, enfatizando su relevancia en el ámbito de la Ingeniería de Sistemas. Se abordan métodos de solución analíticos y se ilustran aplicaciones prácticas en control automático, redes de comunicación y simulación de procesos. Los ejemplos resueltos demuestran la utilidad de estas ecuaciones para describir comportamientos temporales en sistemas complejos.
-\end{quote}
+% \vfill
+% \begin{center}
+%     \textbf{Resumen}
+% \end{center}
+% \begin{quote}
+%     Las ecuaciones diferenciales homogéneas con coeficientes lineales constituyen una herramienta fundamental en el modelado matemático de sistemas dinámicos. Este documento presenta una revisión teórica y aplicada de estos conceptos, enfatizando su relevancia en el ámbito de la Ingeniería de Sistemas. Se abordan métodos de solución analíticos y se ilustran aplicaciones prácticas en control automático, redes de comunicación y simulación de procesos. Los ejemplos resueltos demuestran la utilidad de estas ecuaciones para describir comportamientos temporales en sistemas complejos.
+% \end{quote}
 \newpage
 
 \section{Introducción}
@@ -335,5 +365,44 @@ Ogata, K. (2010). \textit{Modern control engineering} (5th ed.). Prentice Hall.
 Dorf, R. C., \& Bishop, R. H. (2017). \textit{Modern control systems} (13th ed.). Pearson.
 
 \end{thebibliography}
+
+% recursos.tex
+\section{Recursos Adicionales}
+
+\subsection{Enlaces de Interés}
+
+\begin{itemize}
+    \item \textbf{Simulaciones de Sistemas Dinámicos:} 
+    \url{https://phet.colorado.edu/es/}
+    
+    \item \textbf{Calculadora de Ecuaciones Diferenciales:} 
+    \url{https://www.wolframalpha.com/}
+    
+    \item \textbf{Tutoriales de GeoGebra:} 
+    \url{https://www.geogebra.org/}
+    
+    \item \textbf{Documentación de Python para Cálculo Científico:} 
+    \url{https://docs.scipy.org/doc/scipy/}
+\end{itemize}
+
+\subsection{Software Utilizado}
+
+\begin{itemize}
+    \item \textbf{GeoGebra:} Software de matemática dinámica para visualización
+    \item \textbf{Python con SciPy:} Para solución numérica y gráficos
+    \item \textbf{MATLAB/Octave:} Alternativa para simulación de sistemas
+\end{itemize}
+
+\subsection{Repositorios de Código}
+
+\begin{itemize}
+    \item \textbf{Ejemplos de este documento:} 
+    \url{https://github.com/tuusuario/ecuaciones-diferenciales}
+    \item \textbf{Juego didactico:} 
+    \url{https://wayground.com/admin/quiz/68d99f45fc749bfe6872e611}
+    
+    \item \textbf{Scripts de Python:} Código para generar las gráficas mostradas
+    \item \textbf{Archivos de GeoGebra:} Simulaciones interactivas
+\end{itemize}
 
 \end{document}
