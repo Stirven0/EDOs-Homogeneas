@@ -1,0 +1,71 @@
+% desarrollo.tex
+\newpage
+\section{Desarrollo}
+
+\subsection{Conceptos Fundamentales}
+
+Una ecuación diferencial homogénea con coeficientes lineales es una ecuación de la forma
+
+\begin{equation}
+    a_n \frac{d^n y}{dx^n} + a_{n-1} \frac{d^{n-1} y}{dx^{n-1}} + \cdots + a_1 \frac{dy}{dx} + a_0 y = 0
+\end{equation}
+
+donde $a_0, a_1, \ldots, a_n$ son coeficientes constantes y $y$ es una función de $x$.
+
+
+\subsection{Ecuaciones de Segundo Orden}
+
+Para el caso particular de ecuaciones de segundo orden, la forma general es:
+
+\begin{equation}
+    a \frac{d^2 y}{dx^2} + b \frac{dy}{dx} + c y = 0
+\end{equation}
+
+La solución se obtiene mediante la ecuación característica:
+
+\begin{equation}
+    ar^2 + br + c = 0
+\end{equation}
+
+Las raíces de esta ecuación determinan la forma de la solución general:
+
+\begin{itemize}
+
+\item \textbf{Raíces reales distintas} ($b^2 - 4ac > 0$)
+\begin{equation}
+    y(x) = C_1 e^{r_1 x} + C_2 e^{r_2 x}
+\end{equation}
+
+\item \textbf{Raíces reales repetidas} ($b^2 - 4ac = 0$)
+\begin{equation}
+    y(x) = (C_1 + C_2 x) e^{rx}
+\end{equation}
+
+\item \textbf{Raíces complejas conjugadas} ($b^2 - 4ac < 0$)
+\begin{equation}
+    y(x) = e^{\alpha x} (C_1 \cos(\beta x) + C_2 \sin(\beta x))
+\end{equation}
+
+\end{itemize}
+
+\subsection{Aplicación en Sistemas de Control}
+
+En sistemas de control automático, las ecuaciones diferenciales homogéneas modelan la respuesta natural de sistemas de segundo orden. Consideremos un sistema masa-resorte-amortiguador:
+
+\begin{equation}
+    m \frac{d^2 x}{dt^2} + c \frac{dx}{dt} + kx = 0
+\end{equation}
+
+donde $m$ es la masa, $c$ es el coeficiente de amortiguamiento, y $k$ es la constante del resorte.
+
+La solución de esta ecuación describe el comportamiento transitorio del sistema, crucial para determinar estabilidad y tiempo de respuesta en sistemas de control.
+
+\subsection{Análisis de Redes de Comunicación}
+
+En el modelado de redes de comunicación, las ecuaciones diferenciales homogéneas describen la dinámica de colas y la propagación de señales. Para un sistema de cola M/M/1, la ecuación de estado puede formularse como:
+
+\begin{equation}
+    \frac{dP_n(t)}{dt} = \lambda P_{n-1}(t) - (\lambda + \mu) P_n(t) + \mu P_{n+1}(t)
+\end{equation}
+
+En estado estacionario, esta ecuación se simplifica a un sistema homogéneo que permite analizar la estabilidad de la red.

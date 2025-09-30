@@ -1,0 +1,62 @@
+% main.tex
+\documentclass[12pt,man]{apa7}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{caption}
+\usepackage{float}
+
+
+
+\makeatletter
+\renewcommand\tagform@[1]{}
+\makeatother
+
+\graphicspath{{./EDOs_imgs/}} % Ajusta según necesites
+
+% SOLUCIÓN ESPECÍFICA PARA APA7
+\newfloat{figure}{H}{lop}  % Crea un nuevo tipo de float forzado
+\floatplacement{figure}{H} % Fuerza la colocación
+
+% Configuración para evitar que las figuras se muevan
+\makeatletter
+\setcounter{topnumber}{10}
+\setcounter{bottomnumber}{10}
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\renewcommand{\textfraction}{0.0}
+\makeatother
+
+% Resto de tu configuración...
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Ecuaciones Diferenciales Homogéneas},
+}
+
+\setlength{\headheight}{15.4pt}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\doublespacing
+\setlength{\parindent}{0.5in}%
+
+\begin{document}
+\input{portada.tex}
+\input{introduccion.tex}
+\input{desarrollo.tex}
+\input{ejersicios.tex}
+\input{conclucion.tex}
+\input{referencias.tex}
+\input{recursos.tex}
+\end{document}
